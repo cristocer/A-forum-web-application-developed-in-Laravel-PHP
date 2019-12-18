@@ -40,7 +40,7 @@ class ForumController extends Controller
         request()->validate([
             'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:19048',
         ]);
-        if($request->photo=null){
+        if($request->photo!=null){
             $file =$request->photo;
             $photoName = time().'.'.$file->getClientOriginalExtension() ;
             $file->move(public_path('images'), $photoName);
