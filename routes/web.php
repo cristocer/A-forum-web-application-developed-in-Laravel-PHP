@@ -42,5 +42,7 @@ Route::prefix('question')->group(function() {
     Route::delete('/thread', 'ForumController@deleteQuestion')->name('delete_question');
     Route::get('/{slug}', 'ForumController@viewThread')->name('view_thread');
     Route::post('/post', 'ForumController@savePost')->name('save_post');
+    Route::get('/{id}/edit/post', 'ForumController@getEditPost')->name('get_edit_post');
+    Route::post('/edit/post', 'ForumController@saveEditPost')->name('edit_post');
     Route::delete('/post', 'ForumController@deletePost')->name('delete_post');
 });

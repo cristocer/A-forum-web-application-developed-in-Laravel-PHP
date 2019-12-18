@@ -37,12 +37,16 @@ class ForumController extends Controller
         $thread->body=$request['body'];
 
         request()->validate([
-            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:19048',
+            'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:19048',
         ]);
-        $file =$request->photo;
-        $photoName = time().'.'.$file->getClientOriginalExtension() ;
-        $file->move(public_path('images'), $photoName);
-        $thread->image='images/'.$photoName;
+        if($request->photo=null){
+            $file =$request->photo;
+            $photoName = time().'.'.$file->getClientOriginalExtension() ;
+            $file->move(public_path('images'), $photoName);
+            $thread->image='images/'.$photoName;
+        }else{
+            $thread->image='images/animal.jpg';
+        }
         $thread->save();
         Alert::success('Question submitted!', 'Good job!');
         return redirect('/');
@@ -126,16 +130,30 @@ class ForumController extends Controller
             return redirect('/');
         }
     }
-    /*
-    public function imageUploadPost()
-    {
-        request()->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-        $imageName = time().'.'.request()->image->getClientOriginalExtension();
-        request()->image->move(public_path('images'), $imageName);
-        return back()
-            ->with('success','You have successfully upload image.')
-            ->with('image',$imageName);
-    }*/
+    public function getEditPost($id){
+        try{
+            $post=Post::findOrFail($id);
+            if(Auth::user()->id==$post->user_id){
+               return view('layouts.edit_post',compact('post'));
+            }
+            return redirect()->back();
+
+        }catch(ModelNotFoundException $ex){
+            return redirect('/');
+        }
+    }
+    public function saveEditPost(CreatePostRequest $request){
+        try{
+            $post=Post::findOrFail($request['post_id']);
+            if(Auth::user()->id==$post->user_id){
+                $post->body=$request['body'];
+                $post->save();
+                Alert::success('Post updated successfully!', 'Good job!');
+                return redirect('/');
+            }
+
+        }catch(ModelNotFoundException $ex){
+            return redirect('/');
+        }
+    }
 }

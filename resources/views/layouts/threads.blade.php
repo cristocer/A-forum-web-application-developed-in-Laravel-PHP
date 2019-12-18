@@ -21,7 +21,7 @@
                             <li  class="list-inline-item">|</li>
                             @auth
                                 @if(Auth::user()->id==$thread->user_id)
-                                    <li  class="list-inline-item"><span><a href="{{URL::route('get_edit_thread',['id'=>$thread->id])}}">Edit</a></span></li>
+                                    <li  class="list-inline-item"><span><a href="{{route('get_edit_thread',['id'=>$thread->id])}}">Edit</a></span></li>
                                 @endif
                             @endauth
                         </ul>

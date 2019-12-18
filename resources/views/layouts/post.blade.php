@@ -25,6 +25,12 @@
                         <p >{{$post->body}}</p>
                         <ul class="list-inline list-unstyled">
                             <li  class="list-inline-item"><span>{{$post->created_at->diffForHumans()}}</span></li>
+                            <li  class="list-inline-item">|</li>
+                            @auth
+                                @if(Auth::user()->id==$post->user_id)
+                                    <li  class="list-inline-item"><span><a href="{{route('get_edit_post',['id'=>$post->id])}}">Edit</a></span></li>
+                                @endif
+                            @endauth
                         </ul>
                     </div>
                 </div>
