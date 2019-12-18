@@ -11,6 +11,11 @@
                     <h1 class="media-heading"><a href="question/{{$thread->slug}}">{{$thread->title}}</a></h1>
                         <p class="text-right">By {{$thread->user->name}}</p>
                         <ul class="list-inline list-unstyled">
+                            @foreach($thread->tags as $tag)
+                                <li class="list-inline-item">{{ $tag->name }}</li>
+                            @endforeach
+                        </ul>
+                        <ul class="list-inline list-unstyled">
                             <li  class="list-inline-item"><span>{{$thread->created_at->diffForHumans()}}</span></li>
                             <li  class="list-inline-item">|</li>
                             @if($thread->posts->count()>0)

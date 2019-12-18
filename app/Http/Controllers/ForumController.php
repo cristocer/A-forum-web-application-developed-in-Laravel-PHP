@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Category;
+use App\Tag;
 use App\Thread;
 use App\Post;
 use App\Http\Requests\CreateThreadRequest;
@@ -25,7 +26,9 @@ class ForumController extends Controller
     public function getThread(){
 
         $categories=Category::all();
-        return view('layouts.question',compact('categories'));
+        //$tags=Tag::all();
+        $tags = \App\Tag::get()->pluck('name', 'id');
+        return view('layouts.question',compact('categories','tags'));
     }
     public function postQuestion(CreateThreadRequest $request){
 
@@ -35,7 +38,6 @@ class ForumController extends Controller
         $thread->category_id=$request['category'];
         $thread->title=$request['title'];
         $thread->body=$request['body'];
-
         request()->validate([
             'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:19048',
         ]);
@@ -48,6 +50,7 @@ class ForumController extends Controller
             $thread->image='images/animal.jpg';
         }
         $thread->save();
+        $thread->tags()->sync((array)$request->input('tag'));
         Alert::success('Question submitted!', 'Good job!');
         return redirect('/');
     }

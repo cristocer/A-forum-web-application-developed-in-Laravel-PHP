@@ -17,6 +17,9 @@
                 @endforeach
             </select>
             <br/>
+            {!! Form::label('tag','Multiple tags select (hold ctrl key)')!!}
+            {!! Form::select('tag[]', $tags, old('tag'), ['class' => 'form-control select2', 'multiple' => 'multiple', 'id' => 'selectall-tag' ]) !!}
+            <br/>
             {!! Form::label('body','Body')!!}
             {!! Form::textarea('body',null, ['id' => 'body', 'class' => 'form-control','placeholder'=>'What is your question?','required']) !!}
             <br/>
