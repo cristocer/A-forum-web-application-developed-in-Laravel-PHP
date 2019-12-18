@@ -6,6 +6,7 @@
             <div class="card card-body bg-light">
                 <div class="card-block">
                 <div class="media">
+                    <img class="mr-3" src="{{asset($thread->image)}}" style="height:60px;width:60px;border-radius:50%;margin-right:15px;" alt="Generic placeholder image">
                     <div class="media-body">
                     <h1 class="media-heading"><a href="question/{{$thread->slug}}">{{$thread->title}}</a></h1>
                         <p class="text-right">By {{$thread->user->name}}</p>

@@ -14,6 +14,7 @@ use App\Http\Requests\CreatePostRequest;
 use Auth;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Http\UploadedFile;
 
 class ForumController extends Controller
 {
@@ -34,6 +35,14 @@ class ForumController extends Controller
         $thread->category_id=$request['category'];
         $thread->title=$request['title'];
         $thread->body=$request['body'];
+
+        request()->validate([
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:19048',
+        ]);
+        $file =$request->photo;
+        $photoName = time().'.'.$file->getClientOriginalExtension() ;
+        $file->move(public_path('images'), $photoName);
+        $thread->image='images/'.$photoName;
         $thread->save();
         Alert::success('Question submitted!', 'Good job!');
         return redirect('/');
@@ -117,4 +126,16 @@ class ForumController extends Controller
             return redirect('/');
         }
     }
+    /*
+    public function imageUploadPost()
+    {
+        request()->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        $imageName = time().'.'.request()->image->getClientOriginalExtension();
+        request()->image->move(public_path('images'), $imageName);
+        return back()
+            ->with('success','You have successfully upload image.')
+            ->with('image',$imageName);
+    }*/
 }

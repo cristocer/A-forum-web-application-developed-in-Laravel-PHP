@@ -18,6 +18,7 @@ class CreateThreadsTable extends Migration
             $table->string('title')->nullable();
             $table->string('body');
             $table->string('slug')->unique;
+            $table->string('image')->default('images/animal.jpg');
             $table->timestamps();
             $table->unsignedInteger("user_id");
             $table->integer("category_id")->unsigned();
