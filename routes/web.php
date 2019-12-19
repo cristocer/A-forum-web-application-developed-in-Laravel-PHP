@@ -48,5 +48,7 @@ Route::prefix('question')->group(function() {
 });
 
 
-Route::get('social-login/{provider}', 'Auth\LoginController@redirectToProvider')->name('social-login.redirect');
-Route::get('social-login/{provider}/callback', 'Auth\LoginController@handleProviderCallback')->name('social-login.callback');
+Route::get('social-login/{provider}', 'SocialDataController@redirectToProvider')->name('social-login1.redirect');
+Route::get('social-login/{provider}/callback', 'SocialDataController@handleProviderCallback')->name('social-login1.callback');
+
+

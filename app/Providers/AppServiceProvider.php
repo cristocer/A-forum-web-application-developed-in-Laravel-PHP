@@ -4,6 +4,10 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\URL;
+use App\SocialData\FbSocialGateway;
+use App\SocialData\GitSocialGateway;
+use App\SocialData\SocialGatewayContract;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -13,7 +17,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(SocialGatewayContract::class,function($app){
+            //Use the Facebook gateway.
+            if(request()->provider=='facebook'){
+                return new FbSocialGateway();
+            }
+            //Use the Github gateway.
+            return new GitSocialGateway();
+        });
     }
 
     /**
