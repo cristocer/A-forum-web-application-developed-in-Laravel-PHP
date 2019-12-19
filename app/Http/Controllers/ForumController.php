@@ -52,7 +52,7 @@ class ForumController extends Controller
             $imageNew->name=$photoName;
             $imageNew->save();
         }else{
-            $thread->image='images/animal.jpg';
+            $thread->image='images/market.jpg';
             $thread->save();
         }
         

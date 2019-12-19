@@ -8,7 +8,7 @@ use Faker\Generator as Faker;
 $factory->define(Category::class, function (Faker $faker) {
     global $e;
     $e++;
-    $array1 = array ("spare","Amphibians","Birds","Fish","Mammals","Reptiles");
+    $array1 = array ("spare","Dairy Foods","Fish and Seafood","Fruits","Grains, Beans and Nuts","Meat and Poultry","Vegetables");
     return [
         "name"=>$array1[$e],
     ];
