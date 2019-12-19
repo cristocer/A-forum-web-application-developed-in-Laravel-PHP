@@ -68,6 +68,13 @@
                                 </button>
                             </div>
                         </div>
+
+                        <a href="{{ route('social-login.redirect','github')}}" class="btn btn-secondary">Github</a>
+                        <a href="{{ route('social-login.redirect','facebook')}}" class="btn btn-secondary">Facebook</a>
+
+
+
+
                     </form>
                 </div>
             </div>

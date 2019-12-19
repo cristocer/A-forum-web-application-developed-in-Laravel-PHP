@@ -45,7 +45,7 @@
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
                                     <label class="form-check-label" for="remember">
-                                        {{ __('R        Remember Me') }}
+                                        {{ __('Remember Me') }}
                                     </label>
                                 </div>
                             </div>
@@ -64,6 +64,11 @@
                                 @endif
                             </div>
                         </div>
+
+                            <a href="{{ route('social-login.redirect','github')}}" class="btn btn-secondary">Github</a>
+                            <a href="{{ route('social-login.redirect','facebook')}}" class="btn btn-secondary">Facebook</a>
+
+
                     </form>
                 </div>
             </div>

@@ -46,3 +46,7 @@ Route::prefix('question')->group(function() {
     Route::post('/edit/post', 'ForumController@saveEditPost')->name('edit_post');
     Route::delete('/post', 'ForumController@deletePost')->name('delete_post');
 });
+
+
+Route::get('social-login/{provider}', 'Auth\LoginController@redirectToProvider')->name('social-login.redirect');
+Route::get('social-login/{provider}/callback', 'Auth\LoginController@handleProviderCallback')->name('social-login.callback');
