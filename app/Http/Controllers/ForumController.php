@@ -9,6 +9,7 @@ use App\Category;
 use App\Tag;
 use App\Thread;
 use App\Post;
+use App\Image;
 use App\Http\Requests\CreateThreadRequest;
 use App\Http\Requests\CreatePostRequest;
 use Auth;
@@ -42,13 +43,19 @@ class ForumController extends Controller
         ]);
         if($request->photo!=null){
             $file =$request->photo;
-            $photoName = time().'.'.$file->getClientOriginalExtension() ;
+            $photoName = time().'.'.$file->getClientOriginalExtension();
             $file->move(public_path('images'), $photoName);
             $thread->image='images/'.$photoName;
+            $thread->save();
+            $imageNew = new Image();
+            $imageNew->thread_id=$thread->id;
+            $imageNew->name=$photoName;
+            $imageNew->save();
         }else{
             $thread->image='images/animal.jpg';
+            $thread->save();
         }
-        $thread->save();
+        
         $thread->tags()->sync((array)$request->input('tag'));
         Alert::success('Question submitted!', 'Good job!');
         return redirect('/');

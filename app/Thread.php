@@ -39,4 +39,8 @@ class Thread extends Model
     public function category(){
         return $this->belongsTo('App\Category');
     }
+    public function image(){
+        return $this->hasOne('App\Image');
+    }
+
 }

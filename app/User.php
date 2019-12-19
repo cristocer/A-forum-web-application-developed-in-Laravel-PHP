@@ -25,9 +25,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-    public function facebookAccount(){
-        return $this->hasOne('App\FacebookAccount');
-    }
+    
     public function threads(){
         return $this->hasMany('App\Thread');
     }
