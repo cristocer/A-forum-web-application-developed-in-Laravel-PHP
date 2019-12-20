@@ -24,7 +24,7 @@ class CreateThreadRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'=>'required|max:80',
+            'title'=>'required|max:40',
             'category'=>'required',
             'body'=>'required|min:5',
             
